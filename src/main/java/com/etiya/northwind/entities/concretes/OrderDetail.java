@@ -19,7 +19,15 @@ import lombok.NoArgsConstructor;
 @Table(name ="order_details")
 @IdClass(OrderDetailId.class)
 public class OrderDetail{
-
+	
+	@Id
+	@Column(name = "order_id")
+	private int orderId;
+	
+	@Id
+	@Column(name = "product_id")
+	private int productId;
+	
 	@Column(name = "unit_price")
 	private double unitPrice;
 	
@@ -28,15 +36,13 @@ public class OrderDetail{
 	
 	@Column(name ="discount")
 	private double discount;
-	
-	@Id
+
 	@ManyToOne
-	@JoinColumn(name="order_id")
+	@JoinColumn(name="order_id", insertable = false, updatable = false)
 	private Order order;
 	
-	@Id
 	@ManyToOne
-	@JoinColumn(name="product_id")
+	@JoinColumn(name="product_id", insertable = false, updatable = false)
 	private Product product;
 	
 }

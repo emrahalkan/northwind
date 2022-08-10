@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.etiya.northwind.business.abstracts.CategoryService;
+import com.etiya.northwind.business.requests.categories.CreateCategoryRequest;
+import com.etiya.northwind.business.requests.categories.DeleteCategoryRequest;
+import com.etiya.northwind.business.requests.categories.UpdateCategoryRequest;
+import com.etiya.northwind.business.responses.categories.CategoryGetResponse;
 import com.etiya.northwind.business.responses.categories.CategoryListResponse;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
 import com.etiya.northwind.dataAccess.abstracts.CategoryRepository;
@@ -23,6 +27,31 @@ public class CategoryManager implements CategoryService{
 		this.modelMapperService = modelMapperService;
 	}
 
+
+	@Override
+	public void add(CreateCategoryRequest createCategoryRequest) {
+		Category category = this.modelMapperService.forRequest().map(createCategoryRequest, Category.class);
+		this.categoryRepository.save(category);
+	}
+
+	@Override
+	public void delete(DeleteCategoryRequest deleteCategoryRequest) {
+		this.categoryRepository.deleteById(deleteCategoryRequest.getCategoryId());
+	}
+
+	@Override
+	public void update(UpdateCategoryRequest updateCategoryRequest) {
+		Category category = this.modelMapperService.forRequest().map(updateCategoryRequest, Category.class);
+		this.categoryRepository.save(category);
+	}
+
+	@Override
+	public CategoryGetResponse getById(int id) {
+		Category category = this.categoryRepository.findById(id).get();
+		CategoryGetResponse response = this.modelMapperService.forRequest().map(category, CategoryGetResponse.class);
+		return response;
+	}
+	
 	@Override
 	public List<CategoryListResponse> getAll() {
 		List<Category> result = this.categoryRepository.findAll();

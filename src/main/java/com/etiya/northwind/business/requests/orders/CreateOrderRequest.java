@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateOrderRequest {
+	private int orderId;
 	private LocalDate orderDate;
 	private LocalDate requiredDate;
 	private LocalDate shippedDate;

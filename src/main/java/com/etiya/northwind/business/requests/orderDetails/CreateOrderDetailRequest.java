@@ -13,5 +13,4 @@ public class CreateOrderDetailRequest {
 	private double unitPrice;
 	private int quantity;
 	private double discount;
-	
 }

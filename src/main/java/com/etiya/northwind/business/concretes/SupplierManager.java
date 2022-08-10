@@ -6,6 +6,10 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.etiya.northwind.business.abstracts.SupplierService;
+import com.etiya.northwind.business.requests.suppliers.CreateSupplierRequest;
+import com.etiya.northwind.business.requests.suppliers.DeleteSupplierRequest;
+import com.etiya.northwind.business.requests.suppliers.UpdateSupplierRequest;
+import com.etiya.northwind.business.responses.suppliers.SupplierGetResponse;
 import com.etiya.northwind.business.responses.suppliers.SupplierListResponse;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
 import com.etiya.northwind.dataAccess.abstracts.SupplierRepository;
@@ -27,6 +31,30 @@ public class SupplierManager implements SupplierService {
 		List<SupplierListResponse> responses = result.stream().map(supplier->this.modelMapperService.forResponse()
 				.map(supplier, SupplierListResponse.class)).collect(Collectors.toList());
 		return responses;
+	}
+
+	@Override
+	public void add(CreateSupplierRequest createSupplierRequest) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(DeleteSupplierRequest deleteSupplierRequest) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(UpdateSupplierRequest updateSupplierRequest) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public SupplierGetResponse getById(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 		
 //		for (Supplier supplier : result) {

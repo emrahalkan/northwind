@@ -16,6 +16,8 @@ import com.etiya.northwind.business.requests.categories.DeleteCategoryRequest;
 import com.etiya.northwind.business.requests.categories.UpdateCategoryRequest;
 import com.etiya.northwind.business.responses.categories.CategoryGetResponse;
 import com.etiya.northwind.business.responses.categories.CategoryListResponse;
+import com.etiya.northwind.core.utilities.results.DataResult;
+import com.etiya.northwind.core.utilities.results.Result;
 
 
 @RestController
@@ -29,27 +31,27 @@ public class CategoriesController {
 	}
 	
 	@PostMapping("/add")
-	public void add(@RequestBody CreateCategoryRequest createCategoryRequest) {
-		this.categoryService.add(createCategoryRequest);
+	public Result add(@RequestBody CreateCategoryRequest createCategoryRequest) {
+		return this.categoryService.add(createCategoryRequest);
 	}
 	
 	@PostMapping("/delete")
-	public void delete(@RequestBody DeleteCategoryRequest deleteCategoryRequest) {
-		this.categoryService.delete(deleteCategoryRequest);
+	public Result delete(@RequestBody DeleteCategoryRequest deleteCategoryRequest) {
+		return this.categoryService.delete(deleteCategoryRequest);
 	}
 	
 	@PostMapping("/update")
-	public void update(@RequestBody UpdateCategoryRequest updateCategoryRequest) {
-		this.categoryService.update(updateCategoryRequest);
+	public Result update(@RequestBody UpdateCategoryRequest updateCategoryRequest) {
+		return this.categoryService.update(updateCategoryRequest);
 	}
 	
 	@GetMapping("/getbyid")
-	public CategoryGetResponse getById(@RequestParam int id) {
+	public DataResult<CategoryGetResponse> getById(@RequestParam int id) {
 		return this.categoryService.getById(id);
 	}
 	
 	@GetMapping("/getall")
-	public List<CategoryListResponse> getAll() {
+	public DataResult<List<CategoryListResponse>> getAll() {
 		return this.categoryService.getAll();
 	}
 

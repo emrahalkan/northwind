@@ -7,11 +7,13 @@ import com.etiya.northwind.business.requests.orderDetails.DeleteOrderDetailReque
 import com.etiya.northwind.business.requests.orderDetails.UpdateOrderDetailRequest;
 import com.etiya.northwind.business.responses.orderDetails.OrderDetailGetResponse;
 import com.etiya.northwind.business.responses.orderDetails.OrderDetailListResponse;
+import com.etiya.northwind.core.utilities.results.DataResult;
+import com.etiya.northwind.core.utilities.results.Result;
 
 public interface OrderDetailService {
-	void add(CreateOrderDetailRequest createOrderDetailRequest);
-	void delete(DeleteOrderDetailRequest deleteOrderDetailRequest);
-	void update(UpdateOrderDetailRequest updateOrderDetailRequest);
-	OrderDetailGetResponse getById(int orderId, int productId);
-	List<OrderDetailListResponse> getAll();
+	Result add(CreateOrderDetailRequest createOrderDetailRequest);
+	Result delete(DeleteOrderDetailRequest deleteOrderDetailRequest);
+	Result update(UpdateOrderDetailRequest updateOrderDetailRequest);
+	DataResult<OrderDetailGetResponse> getById(int orderId, int productId);
+	DataResult<List<OrderDetailListResponse>> getAll();
 }

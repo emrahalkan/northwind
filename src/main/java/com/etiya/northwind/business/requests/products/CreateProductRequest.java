@@ -14,19 +14,33 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateProductRequest {
+	@NotBlank
+	@NotNull
+	@Positive
 	private int productId;
+	
 	@NotBlank
 	@NotNull
 	@Size(min = 1, max = 10)
 	private String productName;
 	
+	@NotBlank
+	@NotNull
 	@Positive
 	private double unitPrice;
 	
+	@NotBlank
+	@NotNull
 	@PositiveOrZero
 	private int unitsInStock;
 	
+	@NotBlank
+	@NotNull
 	@Positive
 	private int categoryId;
+	
+	@NotBlank
+	@NotNull
+	@Positive
 	private int supplierId;
 }

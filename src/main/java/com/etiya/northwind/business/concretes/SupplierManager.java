@@ -12,6 +12,10 @@ import com.etiya.northwind.business.requests.suppliers.UpdateSupplierRequest;
 import com.etiya.northwind.business.responses.suppliers.SupplierGetResponse;
 import com.etiya.northwind.business.responses.suppliers.SupplierListResponse;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
+import com.etiya.northwind.core.utilities.results.DataResult;
+import com.etiya.northwind.core.utilities.results.Result;
+import com.etiya.northwind.core.utilities.results.SuccessDataResult;
+import com.etiya.northwind.core.utilities.results.SuccessResult;
 import com.etiya.northwind.dataAccess.abstracts.SupplierRepository;
 import com.etiya.northwind.entities.concretes.Supplier;
 
@@ -26,47 +30,41 @@ public class SupplierManager implements SupplierService {
 	}
 
 	@Override
-	public List<SupplierListResponse> getAll() {
+	public DataResult<List<SupplierListResponse>> getAll() {
 		List<Supplier> result = this.supplierRepository.findAll();
 		List<SupplierListResponse> responses = result.stream().map(supplier->this.modelMapperService.forResponse()
 				.map(supplier, SupplierListResponse.class)).collect(Collectors.toList());
-		return responses;
+		return new SuccessDataResult<List<SupplierListResponse>>(responses);
 	}
 
 	@Override
-	public void add(CreateSupplierRequest createSupplierRequest) {
-		// TODO Auto-generated method stub
+	public Result add(CreateSupplierRequest createSupplierRequest) {
+		Supplier supplier = this.modelMapperService.forRequest().map(createSupplierRequest, Supplier.class);
+		this.supplierRepository.save(supplier);
 		
+		return new SuccessResult("Added");
 	}
 
 	@Override
-	public void delete(DeleteSupplierRequest deleteSupplierRequest) {
-		// TODO Auto-generated method stub
+	public Result delete(DeleteSupplierRequest deleteSupplierRequest) {
+		this.supplierRepository.deleteById(deleteSupplierRequest.getSupplierId());
 		
+		return new SuccessResult("Deleted");
 	}
 
 	@Override
-	public void update(UpdateSupplierRequest updateSupplierRequest) {
-		// TODO Auto-generated method stub
+	public Result update(UpdateSupplierRequest updateSupplierRequest) {
+		Supplier supplier = this.modelMapperService.forRequest().map(updateSupplierRequest, Supplier.class);
+		this.supplierRepository.save(supplier);
 		
+		return new SuccessResult("Added");		
 	}
 
 	@Override
-	public SupplierGetResponse getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public DataResult<SupplierGetResponse> getById(int id) {
+		Supplier supplier = this.supplierRepository.findById(id).get();
+		SupplierGetResponse response = this.modelMapperService.forResponse().map(supplier, SupplierGetResponse.class);
+		return new SuccessDataResult<SupplierGetResponse>(response);
 	}
 		
-//		for (Supplier supplier : result) {
-//			SupplierListResponse responseSupplier = new SupplierListResponse();
-//			responseSupplier.setAddress(supplier.getAddress());
-//			responseSupplier.setCompanyName(supplier.getCompanyName());
-//			responseSupplier.setContactName(supplier.getContactName());
-//			responseSupplier.setContactTitle(supplier.getContactTitle());
-//			responseSupplier.setSupplierId(supplier.getSupplierId());
-//			
-//			responses.add(responseSupplier);
-//		}
-		
-	
 }

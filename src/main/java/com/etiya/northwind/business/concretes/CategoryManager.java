@@ -12,7 +12,11 @@ import com.etiya.northwind.business.requests.categories.DeleteCategoryRequest;
 import com.etiya.northwind.business.requests.categories.UpdateCategoryRequest;
 import com.etiya.northwind.business.responses.categories.CategoryGetResponse;
 import com.etiya.northwind.business.responses.categories.CategoryListResponse;
+import com.etiya.northwind.core.utilities.exceptions.BusinessException;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
+import com.etiya.northwind.core.utilities.results.DataResult;
+import com.etiya.northwind.core.utilities.results.Result;
+import com.etiya.northwind.core.utilities.results.SuccessDataResult;
 import com.etiya.northwind.dataAccess.abstracts.CategoryRepository;
 import com.etiya.northwind.entities.concretes.Category;
 
@@ -29,36 +33,53 @@ public class CategoryManager implements CategoryService{
 
 
 	@Override
-	public void add(CreateCategoryRequest createCategoryRequest) {
+	public Result add(CreateCategoryRequest createCategoryRequest) {
+		checkIfCategoryNameExists(createCategoryRequest.getCategoryName());
 		Category category = this.modelMapperService.forRequest().map(createCategoryRequest, Category.class);
 		this.categoryRepository.save(category);
+		
+		return new SuccessDataResult<>("Added");
 	}
 
 	@Override
-	public void delete(DeleteCategoryRequest deleteCategoryRequest) {
+	public Result delete(DeleteCategoryRequest deleteCategoryRequest) {
 		this.categoryRepository.deleteById(deleteCategoryRequest.getCategoryId());
+		
+		return new SuccessDataResult<>("Deleted");
+
 	}
 
 	@Override
-	public void update(UpdateCategoryRequest updateCategoryRequest) {
+	public Result update(UpdateCategoryRequest updateCategoryRequest) {
 		Category category = this.modelMapperService.forRequest().map(updateCategoryRequest, Category.class);
 		this.categoryRepository.save(category);
+		
+		return new SuccessDataResult<>("Updated");
+
 	}
 
 	@Override
-	public CategoryGetResponse getById(int id) {
-		Category category = this.categoryRepository.findById(id).get();
+	public DataResult<CategoryGetResponse> getById(int id) {
+		Category category = this.categoryRepository.findById(id).get();		
 		CategoryGetResponse response = this.modelMapperService.forRequest().map(category, CategoryGetResponse.class);
-		return response;
+		
+		return new SuccessDataResult<CategoryGetResponse>(response);
 	}
 	
 	@Override
-	public List<CategoryListResponse> getAll() {
+	public DataResult<List<CategoryListResponse>> getAll() {
 		List<Category> result = this.categoryRepository.findAll();
 		List<CategoryListResponse> response = result.stream().map(category -> this.modelMapperService.forResponse()
 				.map(category, CategoryListResponse.class)).collect(Collectors.toList());
 		
-		return response;
+		return new SuccessDataResult<List<CategoryListResponse>>(response);
+	}
+	
+	private void checkIfCategoryNameExists(String categoryName) {
+		Category category = this.categoryRepository.getByCategoryName(categoryName);
+		if (category != null) {
+			throw new BusinessException("ALREADY.EXISTS");
+		}
 	}
 
 }

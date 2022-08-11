@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "employees")
 public class Employee {
+	
 	@Id
 	@Column(name = "employee_id")
 	private int employeeId;
@@ -39,4 +40,8 @@ public class Employee {
 	
 	@OneToMany(mappedBy = "employee")
 	private List<Order> orders;
+	
+	@Column(name = "reports_to")
+	private Integer reportsTo;
+	
 }

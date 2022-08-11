@@ -14,6 +14,8 @@ import com.etiya.northwind.business.requests.orderDetails.CreateOrderDetailReque
 import com.etiya.northwind.business.requests.orderDetails.DeleteOrderDetailRequest;
 import com.etiya.northwind.business.responses.orderDetails.OrderDetailGetResponse;
 import com.etiya.northwind.business.responses.orderDetails.OrderDetailListResponse;
+import com.etiya.northwind.core.utilities.results.DataResult;
+import com.etiya.northwind.core.utilities.results.Result;
 
 @RestController
 @RequestMapping("/api/orderdetails")
@@ -25,22 +27,22 @@ public class OrderDetailsController {
 	}
 	
 	@PostMapping("/add")
-	public void add(@RequestBody CreateOrderDetailRequest createOrderDetailRequest) {
-		this.orderDetailService.add(createOrderDetailRequest);
+	public Result add(@RequestBody CreateOrderDetailRequest createOrderDetailRequest) {
+		return this.orderDetailService.add(createOrderDetailRequest);
 	}
 	
 	@PostMapping("/delete")
-	public void delete(@RequestBody DeleteOrderDetailRequest deleteOrderDetailRequest) {
-		this.orderDetailService.delete(deleteOrderDetailRequest);
+	public Result delete(@RequestBody DeleteOrderDetailRequest deleteOrderDetailRequest) {
+		return this.orderDetailService.delete(deleteOrderDetailRequest);
 	}
 	
 	@GetMapping("/getbyid")
-	public OrderDetailGetResponse getById(@RequestParam int orderId, int productId) {
+	public DataResult<OrderDetailGetResponse> getById(@RequestParam int orderId, int productId) {
 		return this.orderDetailService.getById(orderId, productId);
 	}
 	
 	@GetMapping("/getall")
-	public List<OrderDetailListResponse> getAll(){
+	public DataResult<List<OrderDetailListResponse>> getAll(){
 		return this.orderDetailService.getAll();
 	}
 	

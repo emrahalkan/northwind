@@ -2,6 +2,8 @@ package com.etiya.northwind.api.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +17,8 @@ import com.etiya.northwind.business.requests.employees.DeleteEmployeeRequest;
 import com.etiya.northwind.business.requests.employees.UpdateEmployeeRequest;
 import com.etiya.northwind.business.responses.employees.EmployeeGetResponse;
 import com.etiya.northwind.business.responses.employees.EmployeeListResponse;
+import com.etiya.northwind.core.utilities.results.DataResult;
+import com.etiya.northwind.core.utilities.results.Result;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -26,27 +30,27 @@ public class EmployeesController {
 	}
 	
 	@GetMapping("/getall")
-	public List<EmployeeListResponse> getAll(){
+	public DataResult<List<EmployeeListResponse>> getAll(){
 		return this.employeeService.getAll();
 	}
 	
 	@PostMapping("/add")
-	public void add(@RequestBody CreateEmployeeRequest createEmployeeRequest) {
-		this.employeeService.add(createEmployeeRequest);
+	public Result add(@RequestBody @Valid CreateEmployeeRequest createEmployeeRequest) {
+		return this.employeeService.add(createEmployeeRequest);
 	}
 	
 	@PostMapping("/delete")
-	public void delete(@RequestBody DeleteEmployeeRequest deleteEmployeeRequest) {
-		this.employeeService.delete(deleteEmployeeRequest);
+	public Result delete(@RequestBody DeleteEmployeeRequest deleteEmployeeRequest) {
+		return this.employeeService.delete(deleteEmployeeRequest);
 	}
 	
 	@PostMapping("/update")
-	public void update(@RequestBody UpdateEmployeeRequest updateEmployeeRequest) {
-		this.employeeService.update(updateEmployeeRequest);
+	public Result update(@RequestBody UpdateEmployeeRequest updateEmployeeRequest) {
+		return this.employeeService.update(updateEmployeeRequest);
 	}
 	
 	@GetMapping("/getbyid")
-	public EmployeeGetResponse getById(@RequestParam int id) {
+	public DataResult<EmployeeGetResponse> getById(@RequestParam int id) {
 		return this.employeeService.getById(id);
 	}
 }

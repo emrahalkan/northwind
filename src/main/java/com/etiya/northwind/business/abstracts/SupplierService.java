@@ -7,11 +7,13 @@ import com.etiya.northwind.business.requests.suppliers.DeleteSupplierRequest;
 import com.etiya.northwind.business.requests.suppliers.UpdateSupplierRequest;
 import com.etiya.northwind.business.responses.suppliers.SupplierGetResponse;
 import com.etiya.northwind.business.responses.suppliers.SupplierListResponse;
+import com.etiya.northwind.core.utilities.results.DataResult;
+import com.etiya.northwind.core.utilities.results.Result;
 
 public interface SupplierService {
-	void add(CreateSupplierRequest createSupplierRequest);
-	void delete(DeleteSupplierRequest deleteSupplierRequest);
-	void update(UpdateSupplierRequest updateSupplierRequest);
-	SupplierGetResponse getById(int id);
-	List<SupplierListResponse> getAll();
+	Result add(CreateSupplierRequest createSupplierRequest);
+	Result delete(DeleteSupplierRequest deleteSupplierRequest);
+	Result update(UpdateSupplierRequest updateSupplierRequest);
+	DataResult<SupplierGetResponse> getById(int id);
+	DataResult<List<SupplierListResponse>> getAll();
 }

@@ -1,4 +1,4 @@
-package com.etiya.northwind.business.responses.CartItems;
+package com.etiya.northwind.business.responses.cartItems;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -19,9 +19,11 @@ public class Cart {
     private int cartId;
 
     @OneToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", insertable = false, updatable = false)
     private Customer customer;
-
+    
+    @Column(name = "customer_id")
+    private String customerId;
 
     @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItems;

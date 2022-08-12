@@ -1,4 +1,4 @@
-package com.etiya.northwind.business.responses.CartItems;
+package com.etiya.northwind.business.responses.cartItems;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +13,5 @@ public class CartItemsListResponse {
     private int quantity;
     private double unitPrice;
     private int productId;
-
-
+    
 }

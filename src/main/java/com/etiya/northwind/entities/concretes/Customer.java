@@ -2,11 +2,7 @@ package com.etiya.northwind.entities.concretes;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,6 +37,6 @@ public class Customer {
 	@OneToMany(mappedBy = "customer")
 	private List<Order> orders;
 
-	@OneToMany(mappedBy = "customer")
-	private List<Cart> carts;
+	@OneToOne(mappedBy = "customer")
+	private Cart cart;
 }

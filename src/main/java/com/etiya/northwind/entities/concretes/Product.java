@@ -39,6 +39,9 @@ public class Product {
 	
 	@OneToMany(mappedBy = "product")
 	private List<OrderDetail> orderDetails;
+
+	@OneToMany(mappedBy = "product")
+	private List<CartItem> cartItems;
 	
 	@ManyToOne
 	@JoinColumn(name = "supplier_id")

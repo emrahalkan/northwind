@@ -19,6 +19,8 @@ import com.etiya.northwind.business.responses.products.ProductListResponse;
 import com.etiya.northwind.core.utilities.results.DataResult;
 import com.etiya.northwind.core.utilities.results.Result;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/products")
 public class ProductsController {
@@ -35,7 +37,7 @@ public class ProductsController {
 	}
 	
 	@PostMapping("/add")
-    public Result add(@RequestBody CreateProductRequest createProductRequest) {
+    public Result add(@RequestBody @Valid CreateProductRequest createProductRequest) {
         return this.productService.add(createProductRequest);
     }
 
